@@ -64,4 +64,4 @@ To achieve 15-20 marks you will have shown some good independent research and ma
 ## Source Material
 This assignment code is based on the [Huffman-Java](https://github.com/jimburton/huffman-java) repository by [James Burton](https://github.com/jimburton)
 
-[Assignment Brief]() is stored and is available in this repository
+[Assignment Brief](https://github.com/JazerBarclay/ci583-assignment/blob/main/CI583-AssignmentBrief-2021-22.pdf) is stored and is available in this repository
