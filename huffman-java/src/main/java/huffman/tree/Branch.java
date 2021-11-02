@@ -1,5 +1,6 @@
 package huffman.tree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,11 @@ public class Branch extends Node {
 		Map<Character, List<Boolean>> leftMap, rightMap;		
 
 		// Initialise the left and right lists to the parsed list
-		List<Boolean> leftList = list;
-		List<Boolean> rightList = list;
+		List<Boolean> leftList = new ArrayList<Boolean>();
+		leftList.addAll(list);
+		
+		List<Boolean> rightList = new ArrayList<Boolean>();
+		rightList.addAll(list);
 
 		// Add false and true to each list based on left and right movement
 		leftList.add(false);
