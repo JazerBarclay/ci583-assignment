@@ -20,4 +20,8 @@ target/*
 
 etc/*.hc
 
-
+# Eclipse files / folders
+/target/
+.classpath
+.project
+.settings
