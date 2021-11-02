@@ -1,6 +1,8 @@
 # CI583 Assignment (2021-2022)
 _Data Structures and Operating Systems 2nd Year Module Assignment_
 
+## The Assignment
+
 In this assignment I must implement the Huffman coding. It's a very elegant and simple yet powerful compression algorithm.
 
 The idea is to generate a binary sequence that represents each character required. This might be the English alphabet, some subset of that, or any collection of symbols.
@@ -17,8 +19,6 @@ Note that passing the tests may not be a guarantee of correctness or of full mar
 
 See the slides from this module and the recommended reading for more information on hash tables, hash functions and prime numbers.
 
-## Notes
-
 Issued Friday 29th October 2021
 
 Due by Thursday 13th January 2022 before 15:00
@@ -26,6 +26,13 @@ Due by Thursday 13th January 2022 before 15:00
 To be submitted as a single zip file with the report in the root folder
 
 This assignment is setup for anonymous marking. To remain anonymous, omit your name and other identifying information in your assignment submission.
+
+## The Report Criteria / Structure
+
+Write a report not longer than four A4 sides that includes at least two sections. In Section 1, describe the complexity of your encode and decode methods and discusses the applications for this kind of compression technique. (Note that to describe the complexity of these methods you need to consider the complexity of all methods called within them.) Comment on what you would need to add to this implementation in order to produce a fully working compression/decompression tool that stores compressed data in binary codes? 
+
+In Section 2 of the report, discuss the application of some of the data structures and algorithms you learned about in the first part of the module in the context of operating systems. This will require independent learning and research on your part. Some of the best places to find information will be the lecture slides from this module and the books on operating systems that can be found in the library, especially Operating Systems in Depth (Doeppner) and Modern Operating Systems or Operating Systems: Design and Implementation (both by Tanenbaum et al). A few non-exhaustive examples of the applications you could discuss are the use of the stack and stack frames in assembly code, the use of a binary algorithm in the Buddy System, the “disc map” data structure in the S5FS filesystem or the use of hash functions in page tables, file systems and directory listings.
+
 
 ## Breakdown
 ### Implementation assessment criteria: 60% of overall mark
@@ -43,13 +50,6 @@ If your code does not pass the unit tests and does not show an understanding of 
 **Coding style** _[20 marks]_
 
 To achieve these marks your code must conform to the Java style guidelines linked to on studentcentral, and show good ability with the Java programming language. That means that your code will be consistently and conventionally formatted, comments used appropriately and not over-used, variables named appropriately, and the code will be well-structured. You may have shown independent learning by using features of the language not discussed in the module to structure the code more elegantly.
-
-**Report**
-
-Write a report not longer than four A4 sides that includes at least two sections. In Section 1, describe the complexity of your encode and decode methods and discusses the applications for this kind of compression technique. (Note that to describe the complexity of these methods you need to consider the complexity of all methods called within them.) Comment on what you would need to add to this implementation in order to produce a fully working compression/decompression tool that stores compressed data in binary codes? 
-
-In Section 2 of the report, discuss the application of some of the data structures and algorithms you learned about in the first part of the module in the context of operating systems. This will require independent learning and research on your part. Some of the best places to find information will be the lecture slides from this module and the books on operating systems that can be found in the library, especially Operating Systems in Depth (Doeppner) and Modern Operating Systems or Operating Systems: Design and Implementation (both by Tanenbaum et al). A few non-exhaustive examples of the applications you could discuss are the use of the stack and stack frames in assembly code, the use of a binary algorithm in the Buddy System, the “disc map” data structure in the S5FS filesystem or the use of hash functions in page tables, file systems and directory listings.
-
 ### Report assessment criteria: 40% of overall mark
 
 **Discussion of complexity** _[20 marks]_
