@@ -3,9 +3,7 @@ package huffman;
 import huffman.tree.Branch;
 import huffman.tree.Leaf;
 import huffman.tree.Node;
-
 import java.util.*;
-import java.util.stream.Stream;
 /**
  * The class implementing the Huffman coding algorithm.
  */
@@ -60,16 +58,16 @@ public class Huffman {
 	 * @return          A Huffman tree.
 	 */
 	public static Node treeFromFreqTable(Map<Character, Integer> freqTable) {
-
+		
 		// If we get a table that is null, return null
 		if (freqTable == null) return null;
 
 		// Create new priority queue for frequency table values
 		PQueue q = new PQueue();
-
+		
 		// Create new leaf node for each mapped value in the frequency table
 		for (char c : freqTable.keySet()) q.enqueue(new Leaf(c, freqTable.get(c)));
-
+		
 		// Temp variables used in while loop
 		Node left, right;
 
@@ -84,7 +82,7 @@ public class Huffman {
 			// Enqueue the new branch with the combined frequency values with the left and right nodes
 			q.enqueue(new Branch(left.getFreq() + right.getFreq(), left, right));
 		}
-
+		
 		// Return the last element in the queue which contains the full tree
 		return q.dequeue();
 	}
@@ -115,7 +113,31 @@ public class Huffman {
 	 * @return      The Huffman coding.
 	 */
 	public static HuffmanCoding encode(String input) {
-		throw new UnsupportedOperationException("Method not implemented");
+		
+		// Create a frequency table using the input string
+		Map<Character, Integer> ft = freqTable(input);
+		
+		// Create a tree from the frequency table
+		Node ht = treeFromFreqTable(ft);
+		
+		// Build optimal codes for each character used
+		Map<Character, List<Boolean>> codes = buildCode(ht);
+		
+		// Prepare store for encoded data
+		List<Boolean> data = new ArrayList<>();
+		
+		// Character variable used each loop to hold the current char value
+		char c;
+		
+		// For each character in the input add the corresponding code to the array list
+		for(int i = 0; i < input.length(); i++) {
+			c = input.charAt(i);
+			data.addAll(codes.get(c));
+		}
+		
+		// Return the codes and data as a new HuffmanCoding object
+		return new HuffmanCoding(codes, data);
+		
 	}
 
 	/**
@@ -141,7 +163,65 @@ public class Huffman {
 	 * @return      The reconstructed tree.
 	 */
 	public static Node treeFromCode(Map<Character, List<Boolean>> code) {
-		throw new UnsupportedOperationException("Method not implemented");
+		
+		// Create a new blank tree containing a single branch node with null values left and right
+		Node tree = new Branch(0, null, null);
+		
+		// Set the current node to the root of the tree
+		Node currentNode = tree;
+		
+		// Variable to hold our current code as a list of booleans
+		List<Boolean> currentCode;
+		
+		// For each character in the code list
+		for (char c : code.keySet()) {
+			
+			// Set the current code
+			currentCode = code.get(c);
+			
+			// For each boolean in the current code
+			for (int i = 0; i < currentCode.size(); i++) {
+				
+				// If false (in the code a 0) we go left
+				if (!currentCode.get(i)) {
+					
+					// Create missing branch nodes if missing only when not last in sequence
+					if (((Branch)currentNode).getLeft() == null) {
+						((Branch)currentNode).setLeft(new Branch(0, null, null));
+					}
+					
+					// If last boolean in sequence then create leaf node and reset current node to root of tree
+					if (i == currentCode.size()-1) {
+						((Branch)currentNode).setLeft(new Leaf(c, 0));
+						currentNode = tree;
+					}
+					
+					// If not last then move to left node
+					else currentNode = ((Branch)currentNode).getLeft();
+					
+				// If true (in the code a 1) we go right
+				} else {
+					
+					// Create missing branch nodes if missing
+					if (((Branch)currentNode).getRight() == null) ((Branch)currentNode).setRight(new Branch(0, null, null));
+					
+					// If last boolean in sequence then create leaf node and reset current node to root of tree
+					if (i == currentCode.size()-1) {
+						((Branch)currentNode).setRight(new Leaf(c, 0));
+						currentNode = tree;
+					}
+					
+					// If not last then move to right node
+					else currentNode = ((Branch)currentNode).getRight();
+					
+				} // End current code check
+				
+			} // End code for loop
+			
+		} // End character for loop
+		
+		// Return final tree
+		return tree;
 	}
 
 
@@ -157,6 +237,40 @@ public class Huffman {
 	 * @return      The decoded string.
 	 */
 	public static String decode(Map<Character, List<Boolean>> code, List<Boolean> data) {
-		throw new UnsupportedOperationException("Method not implemented");
+		
+		// A string to store our decoded data
+		String decoded = "";
+		
+		// Create a new huffman tree using the character codes
+		Node tree = treeFromCode(code);
+		
+		// Set the current active node to the root of our tree
+		Branch currentNode = (Branch) tree;
+		
+		// The node we are checking against
+		Node checkNode;
+		
+		// For each boolean (0 or 1) in the data
+		for (boolean b : data) {
+			
+			// If false (0) then we go left
+			if (!b) checkNode = currentNode.getLeft();
+			
+			// If true (1) we go right
+			else checkNode = currentNode.getRight();
+			
+			// If we have found a leaf node then add the corresponding label to our string
+			if (checkNode instanceof Leaf) {
+				decoded+=((Leaf) checkNode).getLabel();
+				currentNode = (Branch) tree;
+			// If it's a branch node then update our current node to the checked node
+			} else {
+				currentNode = (Branch) checkNode;
+			}
+			
+		} // End of data iteration loop
+
+		// Return the decoded string from the encoded data
+		return decoded;
 	}
 }
