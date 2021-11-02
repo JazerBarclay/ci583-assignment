@@ -23,13 +23,13 @@ public class PQueue {
 	 */
 	public void enqueue(Node n) {
 		// NOTE: Try while loop for each i value until a match or none found? Which is faster I wonder?
-		
+
 		// If the queue is empty just add the node
 		if (queue.size() == 0) {
 			queue.add(n);
 			return;
 		}
-		
+
 		// Loop through to compare each value until a 
 		int i = 0;
 		for (Node node : queue) {

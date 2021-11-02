@@ -19,26 +19,26 @@ public class Huffman {
 	 * @return          The frequency table.
 	 */
 	public static Map<Character, Integer> freqTable(String input) {
-		
+
 		// If the input is null, return null
 		if (input == null || input.equals("")) return null;
-		
+
 		// Create new HashMap mapping chars to their frequency
 		Map<Character, Integer> ft = new HashMap<>();
-		
+
 		char c;
 		for (int i = 0; i < input.length(); i++) {
-			
+
 			// Store current iteration of character in c variable
 			c = input.charAt(i);
-			
+
 			// If the character is in the map, update value
 			if (ft.containsKey(c)) ft.replace(c, ft.get(c)+1);
-			
+
 			// If not then add a new entry for the character
 			else ft.put(c, 1);
 		}
-		
+
 		// Return the frequency table
 		return ft;
 	}
@@ -60,19 +60,19 @@ public class Huffman {
 	 * @return          A Huffman tree.
 	 */
 	public static Node treeFromFreqTable(Map<Character, Integer> freqTable) {
-		
+
 		// If we get a table that is null, return null
 		if (freqTable == null) return null;
-		
+
 		// Create new priority queue for frequency table values
 		PQueue q = new PQueue();
-		
+
 		// Create new leaf node for each mapped value in the frequency table
 		for (char c : freqTable.keySet()) q.enqueue(new Leaf(c, freqTable.get(c)));
-		
+
 		// Temp variables used in while loop
 		Node left, right;
-		
+
 		// Loop over queue until only 1 element is left merging leafs and branches together
 		while (q.size() > 1) {
 
@@ -80,11 +80,11 @@ public class Huffman {
 			// allowing us to assume left and right without a check
 			left = q.dequeue();
 			right = q.dequeue();
-			
+
 			// Enqueue the new branch with the combined frequency values with the left and right nodes
 			q.enqueue(new Branch(left.getFreq() + right.getFreq(), left, right));
 		}
-		
+
 		// Return the last element in the queue which contains the full tree
 		return q.dequeue();
 	}
