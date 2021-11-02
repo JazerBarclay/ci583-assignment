@@ -10,34 +10,55 @@ import java.util.List;
  */
 public class PQueue {
 
-    private List<Node> queue;
+	private List<Node> queue;
 
-    public PQueue() {
-        queue = new ArrayList<>();
-    }
+	public PQueue() {
+		queue = new ArrayList<>();
+	}
 
-    /**
-     * Add a node to the queue. The new node should be inserted at the point where the frequency of next node is
-     * greater than or equal to that of the next one.
-     * @param n The node to enqueue.
-     */
-    public void enqueue(Node n) {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
+	/**
+	 * Add a node to the queue. The new node should be inserted at the point where the frequency of next node is
+	 * greater than or equal to that of the next one.
+	 * @param n The node to enqueue.
+	 */
+	public void enqueue(Node n) {
+		// NOTE: Try while loop for each i value until a match or none found? Which is faster I wonder?
+		
+		// If the queue is empty just add the node
+		if (queue.size() == 0) {
+			queue.add(n);
+			return;
+		}
+		
+		// Loop through to compare each value until a 
+		int i = 0;
+		for (Node node : queue) {
+			if (node.getFreq() >= n.getFreq()) {
+				queue.add(i, n);
+				return;
+			}
+			i++;
+		}
 
-    /**
-     * Remove a node from the queue.
-     * @return  The first node in the queue.
-     */
-    public Node dequeue() {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
+		// If no existing element is larger then add the node to the end
+		queue.add(n);
+	}
 
-    /**
-     * Return the size of the queue.
-     * @return  Size of the queue.
-     */
-    public int size() {
-        throw new UnsupportedOperationException("Method not implemented");
-    }
+	/**
+	 * Remove a node from the queue.
+	 * @return  The first node in the queue.
+	 */
+	public Node dequeue() {
+		Node n = (size() > 0) ? queue.remove(0) : null;
+		return n;
+	}
+
+	/**
+	 * Return the size of the queue.
+	 * @return  Size of the queue.
+	 */
+	public int size() {
+		// NOTE: How fast is requesting size from the queue compared to a tracked int value?
+		return queue.size();
+	}
 }
