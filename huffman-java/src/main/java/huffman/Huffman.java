@@ -1,5 +1,7 @@
 package huffman;
 
+import huffman.tree.Branch;
+import huffman.tree.Leaf;
 import huffman.tree.Node;
 
 import java.util.*;
@@ -58,7 +60,33 @@ public class Huffman {
 	 * @return          A Huffman tree.
 	 */
 	public static Node treeFromFreqTable(Map<Character, Integer> freqTable) {
-		throw new UnsupportedOperationException("Method not implemented");
+		
+		// If we get a table that is null, return null
+		if (freqTable == null) return null;
+		
+		// Create new priority queue for frequency table values
+		PQueue q = new PQueue();
+		
+		// Create new leaf node for each mapped value in the frequency table
+		for (char c : freqTable.keySet()) q.enqueue(new Leaf(c, freqTable.get(c)));
+		
+		// Temp variables used in while loop
+		Node left, right;
+		
+		// Loop over queue until only 1 element is left merging leafs and branches together
+		while (q.size() > 1) {
+
+			// Right will always be bigger since the priority queue places smallest to largest
+			// allowing us to assume left and right without a check
+			left = q.dequeue();
+			right = q.dequeue();
+			
+			// Enqueue the new branch with the combined frequency values with the left and right nodes
+			q.enqueue(new Branch(left.getFreq() + right.getFreq(), left, right));
+		}
+		
+		// Return the last element in the queue which contains the full tree
+		return q.dequeue();
 	}
 
 	/**
