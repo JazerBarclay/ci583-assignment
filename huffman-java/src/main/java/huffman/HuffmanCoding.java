@@ -35,9 +35,9 @@ public class HuffmanCoding implements Serializable {
     public List<Boolean> getData() {
         return data;
     }
-
+    
     /**
-     * Write this object ot the filesystem as a serialized Java object.
+     * Write this object to the filesystem as a serialized Java object.
      * @param path  The path to write the object to.
      */
     public void save(String path) {
