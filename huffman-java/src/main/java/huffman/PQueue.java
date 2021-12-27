@@ -22,7 +22,6 @@ public class PQueue {
 	 * @param n The node to enqueue.
 	 */
 	public void enqueue(Node n) {
-		// NOTE: Try while loop for each i value until a match or none found? Which is faster I wonder?
 
 		// If the queue is empty just add the node
 		if (queue.size() == 0) {
@@ -58,7 +57,7 @@ public class PQueue {
 	 * @return  Size of the queue.
 	 */
 	public int size() {
-		// NOTE: How fast is requesting size from the queue compared to a tracked int value?
 		return queue.size();
 	}
+	
 }
