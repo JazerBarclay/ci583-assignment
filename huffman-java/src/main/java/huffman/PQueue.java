@@ -43,14 +43,19 @@ public class PQueue {
 	public Node dequeue() {
 		// If the queue is empty return null immediately
 		if (queue.size() == 0) return null;
+		
 		// Store the top most node to be returned
 		Node popped = queue.get(0);
+		
 		// Set the last element in the queue to replace the first
 		queue.set(0, queue.get(queue.size()-1));
+		
 		// Remove the last element in the array as it has now be moved to the top
 		queue.remove(queue.size()-1);
+		
 		// If the queue has more than 1 element then sort from the top down
 		if (queue.size() > 1) sortHeap(0);
+		
 		// Return the stored top most value
 		return popped;
 	}
