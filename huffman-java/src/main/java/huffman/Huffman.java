@@ -181,12 +181,12 @@ public class Huffman {
    * @return      The reconstructed tree.
    */
   public static Node treeFromCode(Map<Character, List<Boolean>> code) {
-
-    // Create a new blank tree containing a single branch node with null values left and right
-    Node huffmanTree = new Branch(0, null, null);
+    
+    // Create a new blank tree containing a root branch node with null values left and right
+    Node rootNode = new Branch(0, null, null);
 
     // Set the current node to the root of the tree
-    Node currentNode = huffmanTree;
+    Node currentNode = rootNode;
 
     // Variable to hold our current code as a list of booleans
     List<Boolean> currentCode;
@@ -202,10 +202,10 @@ public class Huffman {
 
         // If false (code '0') we go left. If not false (true / code '1') we go right
         if (!currentCode.get(i)) {
-          // If last boolean in sequence then create new left leaf node and reset the current node to the root of the tree
+          // If last boolean then create new left leaf node and reset the current node to the root of the tree
           if (i == currentCode.size()-1) {
             ((Branch)currentNode).setLeft(new Leaf(character, 0));
-            currentNode = huffmanTree;
+            currentNode = rootNode;
           } else {
             // If not last then create missing branch nodes if missing
             if (((Branch)currentNode).getLeft() == null) {
@@ -215,10 +215,10 @@ public class Huffman {
             currentNode = ((Branch)currentNode).getLeft();
           }
         } else {
-          // If last boolean in sequence then create new right leaf node and reset the current node to the root of the tree
+          // If last boolean then create new right leaf node and reset the current node to the root of the tree
           if (i == currentCode.size()-1) {
             ((Branch)currentNode).setRight(new Leaf(character, 0));
-            currentNode = huffmanTree;
+            currentNode = rootNode;
           } else {
             // If not last then create missing branch nodes if missing
             if (((Branch)currentNode).getRight() == null) {
@@ -233,9 +233,9 @@ public class Huffman {
       } // End code for loop
 
     } // End character for loop
-
+    
     // Return constructed tree
-    return huffmanTree;
+    return rootNode;
   }
 
 
@@ -256,10 +256,10 @@ public class Huffman {
     String decodedString = "";
 
     // Create a new huffman tree using the character codes
-    Node huffmanTree = treeFromCode(code);
+    Node root = treeFromCode(code);
 
     // Set the current active node to the root of our tree
-    Branch currentNode = (Branch) huffmanTree;
+    Branch currentNode = (Branch) root;
 
     // The node we will checking against
     Node checkNode;
@@ -277,7 +277,7 @@ public class Huffman {
       // If a leaf node is found, add the label to our decoded string and reset the current node to the tree's root node
       if (checkNode instanceof Leaf) {
         decodedString+=((Leaf) checkNode).getLabel();
-        currentNode = (Branch) huffmanTree;
+        currentNode = (Branch) root;
         // If the leaf node is a pseudo end-of-file character we return return the decoded string 
         // Note that this is used in functional implementation of 'compress' and 'decompress'
         if (((Leaf) checkNode).getLabel() == (char)0x1F) {
