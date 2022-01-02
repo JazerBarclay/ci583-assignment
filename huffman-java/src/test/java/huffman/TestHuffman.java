@@ -146,7 +146,6 @@ public class TestHuffman {
   @Test
   public void testCompressDecompress() {
     /* Files to try out if you want:
-     *   pg1459 (25KB - provided)
      *   aaa (98KB - 100,000 'a' characters from the Artificial Corpus)
      *   alice29 (149KB - text from Canterbury Corpus)
      *   plrabn12 (471KB - poem from Canterbury Corpus)
